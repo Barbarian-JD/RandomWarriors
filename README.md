@@ -1,2 +1,0 @@
-# RandomWarriors
-Simulation Game
