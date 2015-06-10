@@ -49,7 +49,7 @@ public class HomeActivity extends ActionBarActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connection = new check_connection("http://randomwarriors.byethost.com/somephp").execute(null, null, null);
+                connection = new check_connection("http://randomwarriors.byethost7.com/test.php").execute(null, null, null);
             }
         });
         clear.setOnClickListener(new View.OnClickListener() {
@@ -86,16 +86,21 @@ public class HomeActivity extends ActionBarActivity {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(host);
             httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-
+            System.out.println("WILL TRY");
             try {
+                System.out.println("TRIEEED " + running);
                 if (running) {
-                    httppost.setEntity(new UrlEncodedFormEntity(null));
+                    System.out.println("RUNN " );
+                    //httppost.setEntity(new UrlEncodedFormEntity(running));
+
+                    System.out.println("CHECK " );
 
                     // Execute HTTP Post Request
                     response = httpclient.execute(httppost);
+                    System.out.println("RESSS" + response);
                     if (response != null) {
                         is = response.getEntity().getContent();
-
+                        System.out.println(is);
                     }
                 }
 
@@ -111,7 +116,7 @@ public class HomeActivity extends ActionBarActivity {
             if (running) {
                 if (running) {
                     Reader reader = new InputStreamReader(is);
-                    int status = -1;
+                    int status = 0;
                     try {
                         JsonParser parser = new JsonParser();
                         JsonObject data = parser.parse(reader).getAsJsonObject();
@@ -121,7 +126,7 @@ public class HomeActivity extends ActionBarActivity {
                         Type Integer = new TypeToken<Integer>() {
                         }.getType();
                         if (running)
-                            status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FWHICH DATA NEEDED FROM JSON
+                            status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FOR WHICH DATA NEEDED FROM JSON
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
