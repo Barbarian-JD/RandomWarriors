@@ -170,7 +170,6 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
     private void getProfileInformation() {
         try {
             if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-                System.out.println("HEYYYYYYYY I REACHED");
                 //Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                 //String personName = currentPerson.getDisplayName();
                 //String personPhotoUrl = currentPerson.getImage().getUrl();
@@ -186,11 +185,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
                 //updateProfile(true,personName,personPhotoUrl,email);
                 updateProfile(true, email);
             }
-            else{
-                System.out.println("I DIDNT REACH");
-            }
         } catch (Exception e) {
-            System.out.println("I ROCK");
             e.printStackTrace();
         }
     }
