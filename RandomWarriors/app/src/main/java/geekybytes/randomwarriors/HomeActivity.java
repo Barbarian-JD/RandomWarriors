@@ -1,12 +1,19 @@
 package geekybytes.randomwarriors;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,115 +38,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeActivity extends ActionBarActivity {
+public class HomeActivity extends FragmentActivity {
 
-    private AsyncTask connection;
-    private TextView result;
-    static TextView status;
 
+    String email;
+    int status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        email = getIntent().getStringExtra("email");
+        status = getIntent().getIntExtra("signup_status", 0);
 
-        status = (TextView) findViewById(R.id.view_status);
-        Button connect = (Button) findViewById(R.id.button_connect);
-        Button clear = (Button) findViewById(R.id.button_clear);
+        Fragment fragment = null;
+        FragmentManager manager = getSupportFragmentManager();
+        // User already registered in Database
+        if (status == 2){
+            SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = saved_values.edit();
+            editor.putString("email", email);
+            editor.apply();
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        }
+        // User will be registered now
+        else if (status == 1){
+            fragment = new insert_username_fragment();
+            SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = saved_values.edit();
+            editor.putString("email", email);
+            editor.apply();
+            manager.beginTransaction().replace(R.id.container, fragment).commit();
+        }
+        else {
+            ;
+        }
 
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connection = new check_connection("http://randomwarriors.byethost7.com/test.php").execute(null, null, null);
-            }
-        });
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                status.setText("");
-            }
-        });
     }
 
-    class check_connection extends AsyncTask<String, String, String> {
-        public boolean running = true;
-        HttpResponse response;
-        private InputStream is;
-        String host;
 
-        public check_connection(String host) {
-            this.host = host;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onCancelled() {
-            running = false;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(host);
-            httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            System.out.println("WILL TRY");
-            try {
-                System.out.println("TRIEEED " + running);
-                if (running) {
-                    System.out.println("RUNN " );
-                    //httppost.setEntity(new UrlEncodedFormEntity(running));
-
-                    System.out.println("CHECK " );
-
-                    // Execute HTTP Post Request
-                    response = httpclient.execute(httppost);
-                    System.out.println("RESSS" + response);
-                    if (response != null) {
-                        is = response.getEntity().getContent();
-                        System.out.println(is);
-                    }
-                }
-
-            } catch (Exception e) {
-                System.out.println(e);
-                // TODO Auto-generated catch block
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String Result) {
-            if (running) {
-                if (running) {
-                    Reader reader = new InputStreamReader(is);
-                    int status = 0;
-                    try {
-                        JsonParser parser = new JsonParser();
-                        JsonObject data = parser.parse(reader).getAsJsonObject();
-
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-                        Gson gson = gsonBuilder.create();
-                        Type Integer = new TypeToken<Integer>() {
-                        }.getType();
-                        if (running)
-                            status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FOR WHICH DATA NEEDED FROM JSON
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if(status==1){
-                        HomeActivity.status.setText("Connection WORKING");
-                    }
-                    else if(status == 0){
-                        HomeActivity.status.setText("CONNECTION FAILED");
-                    }
-                }
-            }
-        }
-    }
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.

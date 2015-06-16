@@ -1,7 +1,18 @@
 package geekybytes.randomwarriors;
 
+import android.widget.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import geekybytes.randomwarriors.R;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
@@ -12,10 +23,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
@@ -24,12 +31,20 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 
 public class MainActivity extends Activity implements OnClickListener, ConnectionCallbacks, OnConnectionFailedListener {
 
     private static final int RC_SIGN_IN = 0;
 
+    private ProgressBar progress;
     // Google client to communicate with Google
     private static GoogleApiClient mGoogleApiClient;
 
@@ -49,6 +64,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
         logged = getIntent().getIntExtra("loggedout",0);
         signinButton = (SignInButton) findViewById(R.id.signin);
         signinButton.setOnClickListener(this);
+        progress = (ProgressBar) findViewById(R.id.progressbar);
 
         //image = (ImageView) findViewById(R.id.image);
        // username = (TextView) findViewById(R.id.username);
@@ -122,8 +138,9 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
         signedInUser = false;
         if(logged==1)
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        else {
+            //Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        }
         getProfileInformation();
     }
 
@@ -134,12 +151,10 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
             {
                 signinFrame.setVisibility(View.GONE);
                 //profileFrame.setVisibility(View.VISIBLE);
-                Intent ihome = new Intent(getApplicationContext(),HomeActivity.class);
+                new check_user_signup(email, "http://randomwarriors.byethost7.com/userTest.php").execute(null, null, null);
                // ihome.putExtra("pname",pname);
                // ihome.putExtra("picurl",picurl);
-                ihome.putExtra("email",email);
-                startActivity(ihome);
-                finish();
+
             }
             else
             {
@@ -166,7 +181,87 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
             profileFrame.setVisibility(View.GONE);
         }
     }
+    class check_user_signup extends AsyncTask<String, String, String> {
+        public boolean running = true;
+        HttpResponse response;
+        private InputStream is;
+        String host, email;
 
+        public check_user_signup(String email, String host) {
+            this.email = email;
+            this.host = host;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onCancelled() {
+            running = false;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            ArrayList<NameValuePair> list = new ArrayList<NameValuePair>();
+            list.add(new BasicNameValuePair("email", email));
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(host);
+            httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            try {
+                if (running) {
+                    httppost.setEntity(new UrlEncodedFormEntity(list));
+
+
+                    // Execute HTTP Post Request
+                    response = httpclient.execute(httppost);
+                    if (response != null) {
+                        is = response.getEntity().getContent();
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                // TODO Auto-generated catch block
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String Result) {
+                if (running) {
+                    Reader reader = new InputStreamReader(is);
+                    int status = 0;
+                    String message = "";
+                    try {
+                        JsonParser parser = new JsonParser();
+
+                        JsonObject data = parser.parse(reader).getAsJsonObject();
+
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        Gson gson = gsonBuilder.create();
+                        Type Integer = new TypeToken<Integer>() {}.getType();
+                        Type String = new TypeToken<String>() {}.getType();
+                        if (running) {
+                            status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FOR WHICH DATA NEEDED FROM JSON
+                            message = gson.fromJson(data.get("message"), String);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Intent ihome = new Intent(getApplicationContext(),HomeActivity.class);
+                    ihome.putExtra("email",email);
+                    ihome.putExtra("signup_status", status);
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    startActivity(ihome);
+                    finish();
+
+                }
+
+            progress.setVisibility(View.GONE);
+        }
+    }
     private void getProfileInformation() {
         try {
             if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
