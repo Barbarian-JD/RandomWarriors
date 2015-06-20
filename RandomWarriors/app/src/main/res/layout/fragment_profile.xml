@@ -1,0 +1,220 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="geekybytes.randomwarriors.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--  <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+          android:text="@string/hello_blank_fragment" />-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageView2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:border_width="2dp"
+                app:border_color="#FF000000"
+                android:layout_above="@+id/text_name"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Username"
+                android:textStyle="bold"
+                android:id="@+id/text_name"
+
+                android:layout_marginBottom="5dp"
+                android:layout_above="@+id/text_email"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_email"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:textStyle="italic"
+                android:text="someone@example.com"
+                android:textColor="#ff3d413c" />
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F5F5F5">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/icon_country"
+                android:src="@drawable/back2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_country"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="Country"
+                android:layout_marginLeft="20dp"
+                android:layout_alignTop="@id/icon_country"
+                android:layout_toRightOf="@id/icon_country"
+                />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/icon_title"
+                android:layout_below="@id/icon_country"
+                android:layout_alignLeft="@id/icon_country"
+                android:src="@drawable/back2"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_title"
+                android:layout_marginLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="5dp"
+                android:layout_alignTop="@id/icon_title"
+                android:layout_toRightOf="@id/icon_title"
+                android:text="Title"
+                android:focusable="false"
+                android:gravity="center_vertical"/>
+
+
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/icon_wins"
+                android:layout_below="@id/icon_title"
+                android:src="@drawable/back2"
+                android:layout_alignLeft="@id/icon_title"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Wins"
+                android:id="@+id/view_wins"
+                android:textColor="#ff707070"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignTop="@id/icon_wins"
+                android:layout_toRightOf="@id/icon_wins"
+                android:textStyle="bold" />
+
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/icon_loses"
+                android:layout_below="@id/icon_wins"
+                android:src="@drawable/back2"
+                android:layout_alignLeft="@id/icon_wins"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Loses"
+                android:id="@+id/view_loses"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignTop="@id/icon_loses"
+                android:layout_toRightOf="@id/icon_loses"
+                android:textColor="#ff707070"
+                android:textStyle="bold" />
+
+
+
+
+        </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="India"
+                   android:textAppearance="?android:attr/textAppearanceLarge"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/value_country"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KingSlayer"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/value_title"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/value_wins"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/value_loses"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

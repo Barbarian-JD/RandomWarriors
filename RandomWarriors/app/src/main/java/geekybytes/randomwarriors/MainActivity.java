@@ -1,5 +1,10 @@
 package geekybytes.randomwarriors;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -139,7 +144,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
         if(logged==1)
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
         else {
-            //Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
         }
         getProfileInformation();
     }
@@ -250,12 +255,19 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Intent ihome = new Intent(getApplicationContext(),HomeActivity.class);
+
+                    SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = saved_values.edit();
+                    editor.putString("email", email);
+                    editor.apply();
+
+                    Intent ihome = new Intent(getApplicationContext(), HomeActivity.class);
                     ihome.putExtra("email",email);
                     ihome.putExtra("signup_status", status);
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     startActivity(ihome);
                     finish();
+
 
                 }
 

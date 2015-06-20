@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/back2">
+
+        <ImageView
+            android:id="@+id/drawerProfileImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/powered_by_google_dark"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/drawerProfilename"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:text="UserName"/>
+
+        </LinearLayout>
+
+    <ListView
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent"  android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent" android:dividerHeight="0dp"
+        android:background="#343434" tools:context="group2.netapp.NavigationDrawerFragment"
+        android:clickable="false"
+        android:id="@+id/drawer_list"/>
+
+    </LinearLayout>
+
+

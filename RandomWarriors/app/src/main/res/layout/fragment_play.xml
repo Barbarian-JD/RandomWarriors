@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="geekybytes.randomwarriors.PlayFragment"
+    android:weightSum="2"
+    android:orientation="horizontal"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+
+        >
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_deep_teal_200"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/accent_material_light"/>
+    </LinearLayout>
+
+</LinearLayout>
