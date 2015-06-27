@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="geekybytes.randomwarriors.PlayFragment"
     android:weightSum="2"
+    android:background="@drawable/archer02"
     android:orientation="horizontal"
     >
 
@@ -15,9 +16,12 @@
 
         >
     <ImageButton
+        android:id="@+id/button_offline"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/material_deep_teal_200"/>
+        android:background="#000000"
+        android:alpha="0.4"
+        />
 
     </LinearLayout>
 
@@ -26,9 +30,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
     <ImageButton
+            android:id="@+id/button_online"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/accent_material_light"/>
+            android:background="#000000"
+            android:alpha="0.7"
+        />
     </LinearLayout>
 
 </LinearLayout>

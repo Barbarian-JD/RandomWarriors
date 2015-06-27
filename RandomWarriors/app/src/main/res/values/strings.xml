@@ -8,8 +8,6 @@
     <string name="title_activity_start">RandomWarriors</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_game">GameActivity</string>
-
-
     <string name="title_section0">Home</string>
     <string name="title_section1">Profile</string>
     <string name="title_section2">Play</string>
@@ -17,5 +15,6 @@
     <string name="title_section4">Logout</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_offline_gameplay">OfflineGameplayActivity</string>
 
 </resources>

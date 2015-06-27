@@ -1,14 +1,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="geekybytes.randomwarriors.StartActivity">
+    tools:context="geekybytes.randomwarriors.StartActivity"
+    android:background="#000000">
 
-    <TextView android:text="APPLICATION STARTED"
+    <ImageView
+        android:id="@+id/image_start"
+        android:layout_width="160dp"
+        android:layout_height="300dp"
+        android:src="@drawable/startpic"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:text="Random\nWarriors"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_start"
+        android:layout_marginBottom="45dp"
+        android:layout_alignBottom="@+id/image_start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        android:textSize="45dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_start"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:textSize="30sp"
-        android:layout_centerVertical="true"
+        android:indeterminate="true"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:visibility="invisible"
+        android:indeterminateDrawable="@drawable/progressbar"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         />
 
 </RelativeLayout>

@@ -36,7 +36,7 @@
         android:text="Submit"
         android:textColor="#FFFFFF"
         android:fadingEdge="horizontal"
-        android:background="#424242"
+        android:background="#4D424242"
         android:id="@+id/button_submit"
         />
 

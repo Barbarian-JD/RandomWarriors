@@ -5,19 +5,23 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class StartActivity extends ActionBarActivity {
-
+    ProgressBar start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        start = (ProgressBar)findViewById(R.id.progress_start);
         Timer timer = new Timer();
+        start.setVisibility(View.VISIBLE);
         timer.schedule(new TimerTask() {
 
             public void run() {
@@ -28,6 +32,9 @@ public class StartActivity extends ActionBarActivity {
             }
 
         }, 3000);
+
+
+
     }
 
 

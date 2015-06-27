@@ -198,6 +198,10 @@ public class insert_username_fragment extends Fragment {
                         e.printStackTrace();
                     }
                     if(status == 1){
+                        SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                        SharedPreferences.Editor editor = saved_values.edit();
+                        editor.putString("username", username.getText().toString());
+                        editor.apply();
                         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), GameActivity.class);
                         startActivity(intent);

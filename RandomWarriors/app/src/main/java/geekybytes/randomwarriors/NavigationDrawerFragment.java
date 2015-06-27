@@ -129,9 +129,9 @@ public class NavigationDrawerFragment extends Fragment {
         SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         //String picpath = saved_values.getString("picpath",null);
         String name = saved_values.getString("username",null);
-
+        System.out.println("USERNAMEEEEEEEEEEEEEEEEEEE " + name);
         drawerProfileName.setText(name);
-        drawerProfileImage.setImageResource(R.drawable.powered_by_google_dark);
+        drawerProfileImage.setImageResource(R.drawable.ic_plusone_medium_off_client);
         /*if(picpath != null) {
             Bitmap bitmap = null;
             File file = new File(picpath, "ProfilePic.jpg");
