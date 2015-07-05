@@ -33,6 +33,7 @@
         android:indeterminate="true"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:visibility="invisible"
+        
         android:indeterminateDrawable="@drawable/progressbar"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"

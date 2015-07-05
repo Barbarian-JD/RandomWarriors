@@ -2,6 +2,7 @@ package geekybytes.randomwarriors;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,8 +13,11 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +63,8 @@ public class insert_username_fragment extends Fragment {
     private EditText username;
 
     private String email;
-
+    String title = "Beginner", country = null;
+    int wins = 0, loses = 0, draws=0;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -104,6 +109,9 @@ public class insert_username_fragment extends Fragment {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         email = prefs.getString("email", "");
+
+        GridView gridView = (GridView) getActivity().findViewById(R.id.grid_avatar);
+        gridView.setAdapter(new ImageAdapter(getActivity()));
 
         message.setText("Welcome " + email);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -198,13 +206,13 @@ public class insert_username_fragment extends Fragment {
                         e.printStackTrace();
                     }
                     if(status == 1){
+                        ArrayList<NameValuePair> mylist = new ArrayList<NameValuePair>();
+                        mylist.add(new BasicNameValuePair("username", username.getText().toString()));
+                        new get_profile("http://randomwarriors.byethost7.com/profile.php", mylist).execute(null, null, null);
                         SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                         SharedPreferences.Editor editor = saved_values.edit();
                         editor.putString("username", username.getText().toString());
                         editor.apply();
-                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), GameActivity.class);
-                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
@@ -214,4 +222,146 @@ public class insert_username_fragment extends Fragment {
             progress.setVisibility(View.GONE);
         }
     }
+
+    class get_profile extends AsyncTask<String, String, String> {
+        public boolean running = true;
+        HttpResponse response;
+        private InputStream is;
+        String host;
+        ArrayList list;
+        public get_profile(String host, ArrayList l) {
+            this.host = host;
+            this.list = l;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onCancelled() {
+            running = false;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(host);
+            httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            try {
+                if (running) {
+                    httppost.setEntity(new UrlEncodedFormEntity(list));
+
+
+                    // Execute HTTP Post Request
+                    response = httpclient.execute(httppost);
+                    if (response != null) {
+                        is = response.getEntity().getContent();
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                // TODO Auto-generated catch block
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String Result) {
+
+            if (running) {
+                Reader reader = new InputStreamReader(is);
+                int status = 0;
+                String message = "";
+                try {
+                    JsonParser parser = new JsonParser();
+                    JsonObject data = parser.parse(reader).getAsJsonObject();
+
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+
+                    Type Integer = new TypeToken<Integer>() {}.getType();
+                    Type String = new TypeToken<String>() {}.getType();
+
+                    status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FOR WHICH DATA NEEDED FROM JSON
+                    message = gson.fromJson(data.get("message"), String);
+                    title = gson.fromJson(data.get("title"), String);
+                    wins = gson.fromJson(data.get("n_wins"), Integer);
+                    loses = gson.fromJson(data.get("n_loses"), Integer);
+                    draws = gson.fromJson(data.get("n_draws"), Integer);
+                    country = gson.fromJson(data.get("country"), String);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if(status == 1){
+                    SharedPreferences saved_values = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    SharedPreferences.Editor editor = saved_values.edit();
+                    editor.putString("title", title);
+                    editor.putInt("wins", wins);
+                    editor.putInt("loses", loses);
+                    editor.putInt("draws", draws);
+                    editor.putString("country", country);
+                    editor.apply();
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), OnlinePairMatchingActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            progress.setVisibility(View.GONE);
+        }
+    }
+
+    class ImageAdapter extends BaseAdapter {
+        private Context mContext;
+
+        // Keep all Images in array
+        public Integer[] mThumbIds = {
+                R.drawable.startpic, R.drawable.archer02,
+                R.drawable.spearman};
+
+        // Constructor
+        public ImageAdapter(Context c){
+            mContext = c;
+        }
+
+        @Override
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mThumbIds[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView = new ImageView(mContext);
+            imageView.setImageResource(mThumbIds[position]);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(70, 70));
+            return imageView;
+        }
+
+    }
 }
+
+
+
+
+
+

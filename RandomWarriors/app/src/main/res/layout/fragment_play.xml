@@ -25,7 +25,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -36,6 +36,16 @@
             android:background="#000000"
             android:alpha="0.7"
         />
-    </LinearLayout>
+     <ProgressBar
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         style="@style/Base.Widget.AppCompat.ProgressBar"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:id="@+id/progressbar"
+         android:visibility="gone"
+         android:indeterminateDrawable="@drawable/progressbar"
+         />
+    </RelativeLayout>
 
 </LinearLayout>

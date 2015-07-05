@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:orientation="horizontal">
-
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:border_width="2dp"
-        app:border_color="#FFFFFF"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/checkBox1"
-        android:src="@drawable/spearman"
-        />
+        android:id="@+id/imageView1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/spearman" />
     <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="10dp"
+
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <RadioButton
+        android:id="@+id/radioButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:text="Text"
-        android:textColor="#FFFFFF"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_toRightOf="@id/image1"/>
-
-
-</RelativeLayout>
+        android:button="@drawable/radiobutton"
+        android:clickable="false"/>
+</LinearLayout>

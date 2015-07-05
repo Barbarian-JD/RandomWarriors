@@ -3,13 +3,37 @@ package geekybytes.randomwarriors;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 /**
@@ -24,7 +48,7 @@ public class PlayFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ImageButton offline_button;
     ImageButton online_button;
-
+    ProgressBar progress;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -68,10 +92,11 @@ public class PlayFragment extends Fragment {
         View inf =  inflater.inflate(R.layout.fragment_play, container, false);
         offline_button = (ImageButton)inf.findViewById(R.id.button_offline);
         online_button = (ImageButton)inf.findViewById(R.id.button_online);
+
         offline_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), OfflineGameplayActivity.class);
+                Intent intent = new Intent(getActivity(), OfflineCharacterPickActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -80,7 +105,8 @@ public class PlayFragment extends Fragment {
         online_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ;
+            progress = (ProgressBar) getActivity().findViewById(R.id.progressbar);
+            new check_internet_status("http://randomwarriors.byethost7.com/test.php").execute(null, null, null);
             }
         });
         return inf;
@@ -90,5 +116,83 @@ public class PlayFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((GameActivity)activity).onSectionAttached(2);
+    }
+
+    class check_internet_status extends AsyncTask<String, String, String> {
+        public boolean running = true;
+        HttpResponse response;
+        private InputStream is;
+        String host;
+
+        public check_internet_status(String host) {
+            this.host = host;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onCancelled() {
+            running = false;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(host);
+            httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            try {
+                if (running) {
+
+                    // Execute HTTP Post Request
+                    response = httpclient.execute(httppost);
+                    if (response != null) {
+                        is = response.getEntity().getContent();
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+                // TODO Auto-generated catch block
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String Result) {
+            if (running) {
+                int status = 0;
+                try {
+                    Reader reader = new InputStreamReader(is);
+                    JsonParser parser = new JsonParser();
+
+                    JsonObject data = parser.parse(reader).getAsJsonObject();
+
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    Type Integer = new TypeToken<Integer>() {}.getType();
+                    if (running) {
+                        status = gson.fromJson(data.get("success"), Integer);          //EDIT THIS LINE FOR WHICH DATA NEEDED FROM JSON
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+                if (status == 0){
+                    Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+                else if (status == 1){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+
+            }
+
+            progress.setVisibility(View.GONE);
+        }
     }
 }

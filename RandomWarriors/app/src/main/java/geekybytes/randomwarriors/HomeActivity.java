@@ -22,8 +22,9 @@ public class HomeActivity extends FragmentActivity {
         int status = getIntent().getIntExtra("signup_status", 0);
         // User already registered in Database
         if (status == 2){
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent(this, OnlinePairMatchingActivity.class);
             startActivity(intent);
+            finish();
         }
         // User will be registered now
         else if (status == 1){

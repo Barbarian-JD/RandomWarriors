@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#4D343434">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    >
 
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D5F5F5F"
+        android:alpha="1.5"
+        />
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:id="@+id/navigation_icon"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
 
@@ -18,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/navigation_text"
         android:text="Text"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="5dp"
         android:textColor="#FFFFFF"
         android:layout_toRightOf="@id/navigation_icon"

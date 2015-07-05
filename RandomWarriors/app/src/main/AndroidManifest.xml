@@ -37,8 +37,16 @@
             android:label="@string/title_activity_game" >
         </activity>
         <activity
+            android:name=".OfflineCharacterPickActivity"
+            android:label="@string/title_activity_offline_gameplay" >
+        </activity>
+        <activity
             android:name=".OfflineGameplayActivity"
             android:label="@string/title_activity_offline_gameplay" >
+        </activity>
+        <activity
+            android:name=".OnlinePairMatchingActivity"
+            android:label="@string/title_activity_online_pair_matching" >
         </activity>
     </application>
 

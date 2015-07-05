@@ -1,45 +1,96 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relative_insert_username"
-    tools:context="geekybytes.randomwarriors.insert_username_fragment">
+    android:orientation="vertical"
+    tools:context="geekybytes.randomwarriors.insert_username_fragment"
+    android:weightSum="2">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.15"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/view_welcome_message"
         android:text="Welcome User"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
 
-    <EditText android:layout_width="wrap_content"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Select an avatar"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.40">
+
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/grid_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            android:gravity="center"
+            android:stretchMode="columnWidth" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        >
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Create Username"
+        android:hint="Input Username"
         android:singleLine="true"
         android:maxLength="20"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:ems="15"
         android:id="@+id/edit_username"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/button_submit"
         android:background="#F5F5F5"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         />
-
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.16"
+        >
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:text="Submit"
         android:textColor="#FFFFFF"
-        android:fadingEdge="horizontal"
-        android:background="#4D424242"
+        android:background="#00796B"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:id="@+id/button_submit"
         />
 
+    </RelativeLayout>
     <ProgressBar android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -48,6 +99,4 @@
         android:id="@+id/myprogressbar"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         />
-
-
-</RelativeLayout>
+</LinearLayout>
