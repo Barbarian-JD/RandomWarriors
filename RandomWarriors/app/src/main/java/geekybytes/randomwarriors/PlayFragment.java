@@ -96,7 +96,7 @@ public class PlayFragment extends Fragment {
         offline_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), OfflineCharacterPickActivity.class);
+                Intent intent = new Intent(getActivity(), OfflineGameModeActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

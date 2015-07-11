@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+     <RelativeLayout
+        android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:background="#000000"
+        android:animateLayoutChanges="true"
+        >
+        <TextView
+            android:id="@+id/character_name_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Archer"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/character_image_top"
+            android:layout_marginTop="10dp"
+            />
+        <ImageView
+            android:id="@+id/character_image_top"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/archer02"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            />
+
+         <ImageView
+             android:visibility="gone"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             android:src="@drawable/loading"
+             />
+
+        <TextView
+            android:id="@+id/character_name_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Barbarian"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_above="@+id/character_image_bottom"
+            />
+        <ImageView
+            android:id="@+id/character_image_bottom"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/startpic"
+            android:layout_alignParentBottom="true"
+            />
+        </RelativeLayout>
+
+    </ViewFlipper>

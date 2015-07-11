@@ -3,24 +3,24 @@ package geekybytes.randomwarriors;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-/**
- * Created by Arshdeep on 05-07-2015.
- */
 public class CharacterMatrix {
 
 
 
-    public HashMap charList = new HashMap ();
-    charList.SimpleEntry = ("Knight",0);
-    charList.put("Archer",1);
-    charList.put("Ninja",2);
-    charList.put("Spearman",3);
-    charList.put("Wizard",4);
-    charList.put("Berserker",5);
-    charList.put("Psycho",6);
-    charList.put("Barbarian",7);
-    charList.put("Robot",8);
+    HashMap charList;
 
+    void initialize_charcter_list() {
+        charList= new HashMap ();
+        charList.put(0, "Knight");
+        charList.put(1, "Archer");
+        charList.put(2, "Ninja");
+        charList.put(3, "Spearman");
+        charList.put(4, "Wizard");
+        charList.put(5, "Berserker");
+        charList.put(6, "Psycho");
+        charList.put(7, "Barbarian");
+        charList.put(8, "Robo");
+    }
     Hashtable characterList = new Hashtable();
 
     double charTable[][] = {

@@ -17,5 +17,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_offline_gameplay">OfflineGameplayActivity</string>
     <string name="title_activity_online_pair_matching">OnlinePairMatchingActivity</string>
+    <string name="title_activity_offline_game_mode">OfflineGameModeActivity</string>
 
 </resources>

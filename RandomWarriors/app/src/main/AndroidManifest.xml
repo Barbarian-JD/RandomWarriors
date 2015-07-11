@@ -48,6 +48,10 @@
             android:name=".OnlinePairMatchingActivity"
             android:label="@string/title_activity_online_pair_matching" >
         </activity>
+        <activity
+            android:name=".OfflineGameModeActivity"
+            android:label="@string/title_activity_offline_game_mode" >
+        </activity>
     </application>
 
 </manifest>
