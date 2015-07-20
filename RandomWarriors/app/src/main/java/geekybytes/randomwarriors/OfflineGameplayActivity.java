@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class OfflineGameplayActivity extends ActionBarActivity {
 
         picked_chars = getIntent().getStringArrayListExtra("picked_chars");
         TextView dum = (TextView)findViewById(R.id.charname);
-
         dum.setText("HELLO " + picked_chars.get(picked_chars.size()-1));
         if (picked_chars.size() < 3) {
             Timer timer = new Timer();
@@ -30,7 +30,7 @@ public class OfflineGameplayActivity extends ActionBarActivity {
                 @Override
                 public void run() {
 
-                    Intent i = new Intent(getApplicationContext(), OfflineCharacterPickActivity.class);
+                    Intent i = new Intent(getApplicationContext(), OfflineCharacterPickFragment.class);
                     i.putExtra("picked_chars", picked_chars);
                     startActivity(i);
                     finish();

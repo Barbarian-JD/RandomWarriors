@@ -27,7 +27,6 @@ import java.util.TimerTask;
 
 public class OfflineGameplayFragment extends Fragment {
     ArrayList<String> picked_chars;
-    ViewFlipper myflipper;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,6 @@ public class OfflineGameplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inf = inflater.inflate(R.layout.fragment_offline_gameplay, container, false);
         picked_chars=getArguments().getStringArrayList("picked_chars");
-        RelativeLayout offline_gameplay = (RelativeLayout) inf.findViewById(R.id.offline_gameplay);
         TextView player = (TextView)inf.findViewById(R.id.character_name_player);
         TextView bot = (TextView)inf.findViewById(R.id.character_name_bot);
         ImageView player_img = (ImageView) inf.findViewById(R.id.character_image_player);
@@ -72,6 +70,20 @@ public class OfflineGameplayFragment extends Fragment {
                     Bundle bundle=new Bundle();
                     bundle.putStringArrayList("picked_chars", picked_chars);
                     OfflineCharacterPickFragment fragobj=new OfflineCharacterPickFragment();
+                    fragobj.setArguments(bundle);
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    manager.beginTransaction().replace(R.id.container_offlinegame, fragobj).commit();
+                }
+            }, 3000);
+        }
+        else{
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Bundle bundle=new Bundle();
+                    bundle.putStringArrayList("picked_chars", picked_chars);
+                    resultScreen fragobj=new resultScreen();
                     fragobj.setArguments(bundle);
                     FragmentManager manager = getActivity().getSupportFragmentManager();
                     manager.beginTransaction().replace(R.id.container_offlinegame, fragobj).commit();
