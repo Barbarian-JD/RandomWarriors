@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -71,6 +72,12 @@ public class resultScreen extends Fragment {
         TextView result = (TextView)inf.findViewById(R.id.text_result);
         Button play_again = (Button)inf.findViewById(R.id.button_play_again);
         Button go_home = (Button)inf.findViewById(R.id.button_go_home);
+        TextView char1 = (TextView)inf.findViewById(R.id.text_character_1);
+        TextView char2 = (TextView)inf.findViewById(R.id.text_character_2);
+        TextView char3 = (TextView)inf.findViewById(R.id.text_character_3);
+        ImageView resultView1 = (ImageView)inf.findViewById(R.id.result_character_1);
+        ImageView resultView2 = (ImageView)inf.findViewById(R.id.result_character_2);
+        ImageView resultView3 = (ImageView)inf.findViewById(R.id.result_character_3);
 
         play_again.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +103,13 @@ public class resultScreen extends Fragment {
         else{
             result.setText("You lose");
         }
+        char1.setText(picked_chars.get(0));
+        char2.setText(picked_chars.get(1));
+        char3.setText(picked_chars.get(2));
+        resultView1.setImageResource(getWinLoseImageSrc(OfflineGameModeActivity.winLoseObject[0]));
+        resultView2.setImageResource(getWinLoseImageSrc(OfflineGameModeActivity.winLoseObject[1]));
+        resultView3.setImageResource(getWinLoseImageSrc(OfflineGameModeActivity.winLoseObject[2]));
+
         return inf;
     }
 
@@ -105,5 +119,11 @@ public class resultScreen extends Fragment {
         ((OfflineGameModeActivity)activity).onSectionAttached(2);
     }
 
-
+public int getWinLoseImageSrc(int val)
+{
+    if(val==0)
+    return R.drawable.ic_close_white_36dp ;
+        else
+    return R.drawable.ic_check_white_36dp;
+}
 }

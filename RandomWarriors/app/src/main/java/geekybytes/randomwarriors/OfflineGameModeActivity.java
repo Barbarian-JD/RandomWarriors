@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class OfflineGameModeActivity extends FragmentActivity {
     private CharSequence mTitle;
     static double win_counter = 0;
+    static int winLoseObject[] = new int[3];
     static ArrayList used_cpu_chars = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

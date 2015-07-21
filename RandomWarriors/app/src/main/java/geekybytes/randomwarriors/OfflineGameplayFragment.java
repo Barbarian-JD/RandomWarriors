@@ -21,6 +21,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,13 +54,16 @@ public class OfflineGameplayFragment extends Fragment {
         int bot_char_num = (int)battle_result.get(1);
         String bot_char_name = (String)battle_result.get(2);
         OfflineGameModeActivity.used_cpu_chars.add(bot_char_num);
+
         player.setText(picked_chars.get(picked_chars.size()-1));
         bot.setText(bot_char_name);
         if (battle == true){
             OfflineGameModeActivity.win_counter++;
+            OfflineGameModeActivity.winLoseObject[picked_chars.size()-1]=1;
             Toast.makeText(getActivity(), "You win", Toast.LENGTH_SHORT).show();
         }
         else {
+            OfflineGameModeActivity.winLoseObject[picked_chars.size()-1]=0;
             Toast.makeText(getActivity(), "You lose", Toast.LENGTH_SHORT).show();
         }
         if (picked_chars.size() < 3) {
