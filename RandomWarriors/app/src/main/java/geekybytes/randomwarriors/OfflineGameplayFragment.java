@@ -37,6 +37,10 @@ public class OfflineGameplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inf = inflater.inflate(R.layout.fragment_offline_gameplay, container, false);
         picked_chars=getArguments().getStringArrayList("picked_chars");
+
+        RelativeLayout mybattle = (RelativeLayout)inf.findViewById(R.id.offline_gameplay);
+
+
         TextView player = (TextView)inf.findViewById(R.id.character_name_player);
         TextView bot = (TextView)inf.findViewById(R.id.character_name_bot);
         ImageView player_img = (ImageView) inf.findViewById(R.id.character_image_player);
@@ -47,12 +51,16 @@ public class OfflineGameplayFragment extends Fragment {
         anim_player.setDuration(2000);anim_bot.setDuration(2000);
         anim_player.setFillAfter(true);anim_bot.setFillAfter(true);
         anim_player.setFillEnabled(true);anim_bot.setFillEnabled(true);
+
         player_img.startAnimation(anim_player);
         bot_img.startAnimation(anim_bot);
         ArrayList battle_result = OfflineCharacterFight.fight_simulation(picked_chars.get(picked_chars.size()-1), OfflineGameModeActivity.used_cpu_chars);
         Boolean battle = (Boolean)battle_result.get(0);
         int bot_char_num = (int)battle_result.get(1);
         String bot_char_name = (String)battle_result.get(2);
+        int battlefield = (int)battle_result.get(3);
+
+        mybattle.setBackgroundResource(battlefield_image_src(battlefield));
         OfflineGameModeActivity.used_cpu_chars.add(bot_char_num);
 
         player.setText(picked_chars.get(picked_chars.size()-1));
@@ -116,6 +124,10 @@ public class OfflineGameplayFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public int battlefield_image_src(int battlefield_id){
+        return (int)CharacterMatrix.battlefield_image_resource.get(battlefield_id);
     }
 }
 

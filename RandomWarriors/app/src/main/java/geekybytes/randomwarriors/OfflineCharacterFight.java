@@ -22,13 +22,15 @@ public class OfflineCharacterFight {
         int selected_player_num = 0;
         CharacterMatrix char_matrix = new CharacterMatrix();
         char_matrix.initialize_charcter_list();
+        char_matrix.initialize_FightEnvironment();
         for (int i=0; i<char_matrix.charList.size(); i++) {
             if(char_matrix.charList.get(i).equals(selected_player_character)){
                 selected_player_num = i;
                 break;
             }
         }
-        double winProb = char_matrix.getWinningProbability(selected_player_num, bot_char)*100;
+        int battlefield = randomGenerator.nextInt(6);
+        double winProb = char_matrix.getWinningProbability(selected_player_num, bot_char, battlefield)*100;
         if (randnum>winProb) {
             victory = true;
         }
@@ -39,6 +41,7 @@ public class OfflineCharacterFight {
         battle_result.add(victory);
         battle_result.add(bot_char);
         battle_result.add(char_matrix.charList.get(bot_char));
+        battle_result.add(battlefield);
 
         return battle_result;
     }
